@@ -25,6 +25,6 @@ For more information on contributing to this repository visit Contributing to a 
 
 **Java libraries:**
 - commons-codec-1.10.jar
-~~- commons-email-1.3.1~~
+- ~~commons-email-1.3.1~~
 - commons-email-1.4.0.jar
 - com.sun.mail.javax.mail-1.4.5.jar
