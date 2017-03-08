@@ -101,7 +101,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 		config.setUseSSLSMTP(this.UseSSL);
 		config.setUseTLSSMTP(this.UseTLS);
 
-		String separator = (String) Core.getConfiguration().getConstantValue("EmailTemplate.EmailAddressSeparator");
+		String separator = (String) emailtemplate.proxies.constants.Constants.getEmailAddressSeparator();
 		if (separator == null)
 			separator = ",";
 
