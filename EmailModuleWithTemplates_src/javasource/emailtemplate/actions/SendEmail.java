@@ -34,6 +34,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 	private String BCCAddresses;
 	private String ToAddresses;
 	private String FromAddress;
+	private String ReplyToAddress;
 	private String HtmlBody;
 	private String PlainBody;
 	private String Subject;
@@ -45,7 +46,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 	private Boolean UseSSL;
 	private Boolean UseTLS;
 
-	public SendEmail(IContext context, String SMTPHost, String SMTPUserName, String SMTPPassword, String CCAddresses, String BCCAddresses, String ToAddresses, String FromAddress, String HtmlBody, String PlainBody, String Subject, Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, Boolean UseSSL, Boolean UseTLS)
+	public SendEmail(IContext context, String SMTPHost, String SMTPUserName, String SMTPPassword, String CCAddresses, String BCCAddresses, String ToAddresses, String FromAddress, String ReplyToAddress, String HtmlBody, String PlainBody, String Subject, Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, Boolean UseSSL, Boolean UseTLS)
 	{
 		super(context);
 		this.SMTPHost = SMTPHost;
@@ -55,6 +56,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 		this.BCCAddresses = BCCAddresses;
 		this.ToAddresses = ToAddresses;
 		this.FromAddress = FromAddress;
+		this.ReplyToAddress = ReplyToAddress;
 		this.HtmlBody = HtmlBody;
 		this.PlainBody = PlainBody;
 		this.Subject = Subject;
@@ -94,6 +96,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 			throw new CoreException("There is no email address configured as the sender.");
 
 		config.setFromAddress(this.FromAddress);
+		config.setReplyToAddress((this.ReplyToAddress != null ? this.ReplyToAddress : this.FromAddress));
 		config.setSMTPHost(this.SMTPHost);
 		config.setSMTPPort((this.SMTPPort != null ? this.SMTPPort.intValue() : (this.UseSSL ? 465 : 25)));
 		config.setUserName((this.SMTPUserName != null ? this.SMTPUserName : ""));
