@@ -22,31 +22,28 @@ import emailtemplate.proxies.Header;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 
-/**
- * 
- */
-public class SendEmail extends CustomJavaAction<Boolean>
+public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 {
-	private String SMTPHost;
-	private String SMTPUserName;
-	private String SMTPPassword;
-	private String CCAddresses;
-	private String BCCAddresses;
-	private String ToAddresses;
-	private String FromAddress;
-	private String ReplyToAddress;
-	private String HtmlBody;
-	private String PlainBody;
-	private String Subject;
-	private Long SMTPPort;
+	private java.lang.String SMTPHost;
+	private java.lang.String SMTPUserName;
+	private java.lang.String SMTPPassword;
+	private java.lang.String CCAddresses;
+	private java.lang.String BCCAddresses;
+	private java.lang.String ToAddresses;
+	private java.lang.String FromAddress;
+	private java.lang.String ReplyToAddress;
+	private java.lang.String HtmlBody;
+	private java.lang.String PlainBody;
+	private java.lang.String Subject;
+	private java.lang.Long SMTPPort;
 	private java.util.List<IMendixObject> __AttachmentList;
 	private java.util.List<system.proxies.FileDocument> AttachmentList;
 	private java.util.List<IMendixObject> __HeaderList;
 	private java.util.List<emailtemplate.proxies.Header> HeaderList;
-	private Boolean UseSSL;
-	private Boolean UseTLS;
+	private java.lang.Boolean UseSSL;
+	private java.lang.Boolean UseTLS;
 
-	public SendEmail(IContext context, String SMTPHost, String SMTPUserName, String SMTPPassword, String CCAddresses, String BCCAddresses, String ToAddresses, String FromAddress, String ReplyToAddress, String HtmlBody, String PlainBody, String Subject, Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, Boolean UseSSL, Boolean UseTLS)
+	public SendEmail(IContext context, java.lang.String SMTPHost, java.lang.String SMTPUserName, java.lang.String SMTPPassword, java.lang.String CCAddresses, java.lang.String BCCAddresses, java.lang.String ToAddresses, java.lang.String FromAddress, java.lang.String ReplyToAddress, java.lang.String HtmlBody, java.lang.String PlainBody, java.lang.String Subject, java.lang.Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, java.lang.Boolean UseSSL, java.lang.Boolean UseTLS)
 	{
 		super(context);
 		this.SMTPHost = SMTPHost;
@@ -68,7 +65,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 	}
 
 	@Override
-	public Boolean executeAction() throws Exception
+	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.AttachmentList = new java.util.ArrayList<system.proxies.FileDocument>();
 		if (__AttachmentList != null)
@@ -96,7 +93,6 @@ public class SendEmail extends CustomJavaAction<Boolean>
 			throw new CoreException("There is no email address configured as the sender.");
 
 		config.setFromAddress(this.FromAddress);
-		config.setReplyToAddress((this.ReplyToAddress != null ? this.ReplyToAddress : this.FromAddress));
 		config.setSMTPHost(this.SMTPHost);
 		config.setSMTPPort((this.SMTPPort != null ? this.SMTPPort.intValue() : (this.UseSSL ? 465 : 25)));
 		config.setUserName((this.SMTPUserName != null ? this.SMTPUserName : ""));
@@ -162,7 +158,7 @@ public class SendEmail extends CustomJavaAction<Boolean>
 	 * Returns a string representation of this action
 	 */
 	@Override
-	public String toString()
+	public java.lang.String toString()
 	{
 		return "SendEmail";
 	}

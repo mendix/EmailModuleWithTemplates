@@ -21,18 +21,18 @@ import com.mendix.webui.CustomJavaAction;
 /**
  * Provide a html string as input, the action will strip off all html elements and returns a plain text to 
  */
-public class ConvertHTMLBodyToPlainText extends CustomJavaAction<String>
+public class ConvertHTMLBodyToPlainText extends CustomJavaAction<java.lang.String>
 {
-	private String HTMLBody;
+	private java.lang.String HTMLBody;
 
-	public ConvertHTMLBodyToPlainText(IContext context, String HTMLBody)
+	public ConvertHTMLBodyToPlainText(IContext context, java.lang.String HTMLBody)
 	{
 		super(context);
 		this.HTMLBody = HTMLBody;
 	}
 
 	@Override
-	public String executeAction() throws Exception
+	public java.lang.String executeAction() throws Exception
 	{
 		// BEGIN USER CODE
 		return ConvertHTMLBodyToPlainText.removeHTML(this.HTMLBody);
@@ -43,7 +43,7 @@ public class ConvertHTMLBodyToPlainText extends CustomJavaAction<String>
 	 * Returns a string representation of this action
 	 */
 	@Override
-	public String toString()
+	public java.lang.String toString()
 	{
 		return "ConvertHTMLBodyToPlainText";
 	}

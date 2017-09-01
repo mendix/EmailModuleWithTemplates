@@ -13,17 +13,14 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 
-/**
- * 
- */
-public class ReplaceCustomToken extends CustomJavaAction<Boolean>
+public class ReplaceCustomToken extends CustomJavaAction<java.lang.Boolean>
 {
-	private String Tokenobject;
-	private String ReplaceValue;
+	private java.lang.String Tokenobject;
+	private java.lang.String ReplaceValue;
 	private IMendixObject __Emailobject;
 	private emailtemplate.proxies.Email Emailobject;
 
-	public ReplaceCustomToken(IContext context, String Tokenobject, String ReplaceValue, IMendixObject Emailobject)
+	public ReplaceCustomToken(IContext context, java.lang.String Tokenobject, java.lang.String ReplaceValue, IMendixObject Emailobject)
 	{
 		super(context);
 		this.Tokenobject = Tokenobject;
@@ -32,7 +29,7 @@ public class ReplaceCustomToken extends CustomJavaAction<Boolean>
 	}
 
 	@Override
-	public Boolean executeAction() throws Exception
+	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.Emailobject = __Emailobject == null ? null : emailtemplate.proxies.Email.initialize(getContext(), __Emailobject);
 
@@ -48,7 +45,7 @@ public class ReplaceCustomToken extends CustomJavaAction<Boolean>
 	 * Returns a string representation of this action
 	 */
 	@Override
-	public String toString()
+	public java.lang.String toString()
 	{
 		return "ReplaceCustomToken";
 	}
