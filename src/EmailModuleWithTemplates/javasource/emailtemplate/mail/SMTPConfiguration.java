@@ -12,6 +12,7 @@ public class SMTPConfiguration
 	private boolean useTLSSMTP;
 	
 	private String fromAddress;
+	private String fromDisplayName;
 	private String replyToAddress;
 	
 	public SMTPConfiguration() 
@@ -24,6 +25,7 @@ public class SMTPConfiguration
 		this.userName = "";
 		this.userPass = "";
 		this.fromAddress = "";
+		this.fromDisplayName = "";
 		this.replyToAddress = "";
 	}
 		
@@ -96,6 +98,17 @@ public class SMTPConfiguration
 		this.fromAddress = fromAddress;
 	}
 
+	public String getFromDisplayName() 
+	{
+		return this.fromDisplayName;
+	}
+
+	public void setFromDisplayName(String fromDisplayName) 
+	{
+		this.fromDisplayName = fromDisplayName;
+	}
+
+	
 	public String getReplyToAddress() 
 	{
 		return this.replyToAddress;

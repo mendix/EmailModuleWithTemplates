@@ -6,11 +6,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.activation.DataSource;
 import javax.activation.MimetypesFileTypeMap;
@@ -18,6 +21,7 @@ import javax.mail.Authenticator;
 import javax.mail.Session;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Base64InputStream;
 import org.apache.commons.mail.DataSourceResolver;
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -40,6 +44,7 @@ public class Sender
 	private final static String FILE_DOCUMENT = "System.FileDocument";
 	
 	private final IContext context;
+	private static final Pattern imgElement  = Pattern.compile( "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>" );
 	
 	public Sender(IContext _context) 
 	{
@@ -51,16 +56,19 @@ public class Sender
 			Map<String, String> headers) 
 					throws CoreException, EmailException 
 	{
+		
+		Map<String, String> inlineImage = new HashMap<String, String>();
+		
 		ImageHtmlEmail mail = new ImageHtmlEmail();
 	    mail.setCharset(EmailConstants.UTF_8);
 	    
 	    for (Entry<String, String> header : headers.entrySet()) {
 	    	mail.addHeader(header.getKey(), header.getValue());
 	    }
-	    
+
 	    // this resolves data uris of inline images
 	    mail.setDataSourceResolver(new DataURIResolver());
-		
+	    
 	    this.setConnectionInfo(mail, configuration);
 
 	    // set basic message content
@@ -70,7 +78,34 @@ public class Sender
         	if(message.getPlainBody() != null) {
                 mail.setTextMsg(message.getPlainBody());
             }
-            mail.setHtmlMsg(message.getHtmlBody());
+
+        	String body = message.getHtmlBody();
+    		final Matcher matcher = imgElement.matcher( body );
+    		int srcIndex;
+    		String srcString, cid, replacedSrc, srcAttr;
+    		
+    		int i = 0;
+    		while ( matcher.find() ) {
+    			String src = matcher.group();
+	        	if ( body.indexOf( src ) != -1 ) {
+	    	    	srcAttr = "src=\"";
+	    	    	
+	    	    	srcIndex = src.indexOf( srcAttr );
+	    	    	srcString = src.substring( srcIndex + srcAttr.length(), src.indexOf( "\"", srcIndex + srcAttr.length() ) );
+	    	    	byte[] imgBytes = Base64.decodeBase64(srcString.split( "," )[1]);
+	    	    	ByteArrayDataSource dSource = new ByteArrayDataSource(imgBytes, "image/*");
+	    	    	
+	    	    	cid = mail.embed(dSource,"image"+ i);
+	    	    	replacedSrc = src.replace( srcString, "cid:" + cid );
+	    	    	
+	    	    	inlineImage.put( cid, srcString.split( "," )[1] );
+	    	    	
+	    	        body = body.replace( src, replacedSrc );
+	    	        i++;
+        		}
+    		}
+        	
+			mail.setHtmlMsg(body);
         }
         else {
         	mail.setMsg(message.getPlainBody());
@@ -79,8 +114,14 @@ public class Sender
         
         // add sender
         String fromAddress = configuration.getFromAddress();
+        String displayName = configuration.getFromDisplayName();
 		try {
-		    mail.setFrom(fromAddress); 
+		    if(null == displayName || displayName.length() == 0) {
+		    	mail.setFrom(fromAddress);
+		    }
+		    else {
+		    	mail.setFrom(fromAddress, displayName);
+		    }
 	    } catch (EmailException e) {
 			throw new CoreException("Incorrect from address: " + fromAddress + ".", e);
 		}
@@ -117,6 +158,7 @@ public class Sender
 			}
 		}
 		mail.setSentDate(new Date());
+		
 		
 		// add attachments
         setAttachments(attachments, mail);

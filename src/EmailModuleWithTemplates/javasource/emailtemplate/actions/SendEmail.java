@@ -42,8 +42,9 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 	private java.util.List<emailtemplate.proxies.Header> HeaderList;
 	private java.lang.Boolean UseSSL;
 	private java.lang.Boolean UseTLS;
+	private java.lang.String FromDisplayName;
 
-	public SendEmail(IContext context, java.lang.String SMTPHost, java.lang.String SMTPUserName, java.lang.String SMTPPassword, java.lang.String CCAddresses, java.lang.String BCCAddresses, java.lang.String ToAddresses, java.lang.String FromAddress, java.lang.String ReplyToAddress, java.lang.String HtmlBody, java.lang.String PlainBody, java.lang.String Subject, java.lang.Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, java.lang.Boolean UseSSL, java.lang.Boolean UseTLS)
+	public SendEmail(IContext context, java.lang.String SMTPHost, java.lang.String SMTPUserName, java.lang.String SMTPPassword, java.lang.String CCAddresses, java.lang.String BCCAddresses, java.lang.String ToAddresses, java.lang.String FromAddress, java.lang.String ReplyToAddress, java.lang.String HtmlBody, java.lang.String PlainBody, java.lang.String Subject, java.lang.Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, java.lang.Boolean UseSSL, java.lang.Boolean UseTLS, java.lang.String FromDisplayName)
 	{
 		super(context);
 		this.SMTPHost = SMTPHost;
@@ -62,6 +63,7 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 		this.__HeaderList = HeaderList;
 		this.UseSSL = UseSSL;
 		this.UseTLS = UseTLS;
+		this.FromDisplayName = FromDisplayName;
 	}
 
 	@Override
@@ -86,13 +88,12 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 
 		if (this.SMTPHost == null)
 			throw new CoreException("There is no smtp server address specified.");
-		// ticket #19433 - username can be null in anonymous access scenario's
-		//if (this.SMTPUserName == null)
-		//	throw new CoreException("There is no user given to access the SMTP server.");
+
 		if (this.FromAddress == null)
 			throw new CoreException("There is no email address configured as the sender.");
 
 		config.setFromAddress(this.FromAddress);
+		config.setFromDisplayName(this.FromDisplayName);
 		config.setSMTPHost(this.SMTPHost);
 		config.setSMTPPort((this.SMTPPort != null ? this.SMTPPort.intValue() : (this.UseSSL ? 465 : 25)));
 		config.setUserName((this.SMTPUserName != null ? this.SMTPUserName : ""));
