@@ -149,7 +149,12 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 			throw new CoreException("Unable to convert the Html body to plain text for email: " + this.Subject + " to: " + this.ToAddresses, e);
 		}
 
-		EmailModule.mail(config, this.HtmlBody, this.PlainBody, this.Subject, toList, ccList, bccList, this.getContext(), this.__AttachmentList, headerMap);
+		if(emailtemplate.proxies.constants.Constants.getSendingEnabled()) {		
+			EmailModule.mail(config, this.HtmlBody, this.PlainBody, this.Subject, toList, ccList, bccList, this.getContext(), this.__AttachmentList, headerMap);
+		}
+		else {
+			this._logNode.info("Did not send email '"+this.Subject + "' to '"+ this.ToAddresses + "' since the 'EmailTemplate.SendingEnabled' constant is not enabled."); 
+		}
 
 		return true;
 		// END USER CODE
