@@ -89,11 +89,21 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 		if (this.SMTPHost == null)
 			throw new CoreException("There is no smtp server address specified.");
 
-		if (this.FromAddress == null)
+		if(this.FromAddress != null && !"".equals(this.FromAddress.trim())) {
+			config.setFromAddress(this.FromAddress);
+		}
+		else {
 			throw new CoreException("There is no email address configured as the sender.");
-
-		config.setFromAddress(this.FromAddress);
-		config.setFromDisplayName(this.FromDisplayName);
+		}
+		
+		if(this.FromDisplayName != null && !"".equals(this.FromDisplayName.trim())) {
+			config.setFromDisplayName(this.FromDisplayName);
+		}
+		
+		if(this.ReplyToAddress != null && !"".equals(this.ReplyToAddress.trim())) {
+			config.setReplyToAddress(this.ReplyToAddress);
+		}
+		
 		config.setSMTPHost(this.SMTPHost);
 		config.setSMTPPort((this.SMTPPort != null ? this.SMTPPort.intValue() : (this.UseSSL ? 465 : 25)));
 		config.setUserName((this.SMTPUserName != null ? this.SMTPUserName : ""));
