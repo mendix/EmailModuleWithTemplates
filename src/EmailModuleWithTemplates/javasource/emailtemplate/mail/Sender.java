@@ -89,18 +89,33 @@ public class Sender
     			String src = matcher.group();
 	        	if ( body.indexOf( src ) != -1 ) {
 	    	    	srcAttr = "src=\"";
+	    	    	srcEnd = "\"";
 	    	    	
+	    	    	//Check if <img src="..."> was used, try <img src=''> instead
 	    	    	srcIndex = src.indexOf( srcAttr );
-	    	    	srcString = src.substring( srcIndex + srcAttr.length(), src.indexOf( "\"", srcIndex + srcAttr.length() ) );
-	    	    	byte[] imgBytes = Base64.decodeBase64(srcString.split( "," )[1]);
-	    	    	ByteArrayDataSource dSource = new ByteArrayDataSource(imgBytes, "image/*");
+	    	    	if (srcIndex == -1) {
+	    	    		srcAttr = "src='";
+		    	    	srcEnd = "'";
+		    	    	srcIndex = src.indexOf( srcAttr );
+	    	    	}
 	    	    	
-	    	    	cid = mail.embed(dSource,"image"+ i);
-	    	    	replacedSrc = src.replace( srcString, "cid:" + cid );
-	    	    	
-	    	    	inlineImage.put( cid, srcString.split( "," )[1] );
-	    	    	
-	    	        body = body.replace( src, replacedSrc );
+	    	    	//Only continue image processing if srcIndex was found
+	    	    	if (srcIndex != -1) {
+	    	    		srcString = src.substring( srcIndex + srcAttr.length(), src.indexOf( srcEnd, srcIndex + srcAttr.length() ) );
+		    	    	
+	    	    		//Only continue image processing if the image source was base64
+	    	    		if (srcString.contains("base64,")) {
+		    	    		byte[] imgBytes = Base64.decodeBase64(srcString.split("base64,")[1].getBytes());
+			    	    	ByteArrayDataSource dSource = new ByteArrayDataSource(imgBytes, "image/*");
+			    	    	
+			    	    	cid = mail.embed(dSource,"image"+ i);
+			    	    	replacedSrc = src.replace( srcString, "cid:" + cid );
+			    	    	
+			    	    	inlineImage.put( cid, srcString.split( "," )[1] );
+			    	    	
+			    	        body = body.replace( src, replacedSrc );
+		    	    	}
+	    	    	}
 	    	        i++;
         		}
     		}
