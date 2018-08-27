@@ -44,7 +44,7 @@ public class Sender
 	private final static String FILE_DOCUMENT = "System.FileDocument";
 	
 	private final IContext context;
-	private static final Pattern imgElement  = Pattern.compile( "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>" );
+	private static final Pattern imgElement  = Pattern.compile( "<img[^>]+src\\s*=\\s*['\"]((data:base64)[^'\"]+)['\"][^>]*>" );
 	
 	public Sender(IContext _context) 
 	{
