@@ -185,7 +185,7 @@ public class Sender
 					InputStream content = Core.getFileDocumentContent(this.context, attachment);
 		
 					try {
-						if(content != null && content.available() > 0) {
+						if(content != null) {
 							DataSource source = new ByteArrayDataSource(content, mimeType);
 							String fileName = (String) attachment.getValue(this.context, FILE_DOCUMENT_NAME);
 							
