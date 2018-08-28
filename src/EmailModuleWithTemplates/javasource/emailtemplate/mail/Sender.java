@@ -82,7 +82,7 @@ public class Sender
         	String body = message.getHtmlBody();
     		final Matcher matcher = imgElement.matcher( body );
     		int srcIndex;
-    		String srcString, cid, replacedSrc, srcAttr;
+    		String srcString, cid, replacedSrc, srcAttr, srcEnd;
     		
     		int i = 0;
     		while ( matcher.find() ) {
