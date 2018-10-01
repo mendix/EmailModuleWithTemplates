@@ -258,10 +258,8 @@ public class Sender
         }
 
         if (mail.isSSLOnConnect()) {
-            properties.setProperty(EmailConstants.MAIL_PORT, mail.getSslSmtpPort());
-            properties.setProperty(EmailConstants.MAIL_SMTP_SOCKET_FACTORY_PORT, mail.getSslSmtpPort());
-            properties.setProperty(EmailConstants.MAIL_SMTP_SOCKET_FACTORY_CLASS, "javax.net.ssl.SSLSocketFactory");
-            properties.setProperty(EmailConstants.MAIL_SMTP_SOCKET_FACTORY_FALLBACK, "false");
+        	properties.setProperty(EmailConstants.MAIL_SMTP_SSL_ENABLE, "true");
+        	properties.setProperty(EmailConstants.MAIL_PORT, mail.getSslSmtpPort());
         }
 
         if ((mail.isSSLOnConnect() || mail.isStartTLSEnabled()) && mail.isSSLCheckServerIdentity()) {
