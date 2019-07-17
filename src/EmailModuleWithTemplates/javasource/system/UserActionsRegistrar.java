@@ -7,9 +7,6 @@ public class UserActionsRegistrar
   public void registerActions(IActionRegistrator registrator)
   {
     registrator.bundleComponentLoaded();
-    registrator.registerUserAction(appcloudservices.actions.GenerateRandomPassword.class);
-    registrator.registerUserAction(appcloudservices.actions.LogOutUser.class);
-    registrator.registerUserAction(appcloudservices.actions.StartSignOnServlet.class);
     registrator.registerUserAction(emailtemplate.actions.ConvertHTMLBodyToPlainText.class);
     registrator.registerUserAction(emailtemplate.actions.CopyAttachmentContent.class);
     registrator.registerUserAction(emailtemplate.actions.ReplaceCustomToken.class);
