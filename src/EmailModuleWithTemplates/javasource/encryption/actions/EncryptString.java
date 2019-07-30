@@ -9,12 +9,12 @@
 
 package encryption.actions;
 
+import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import com.mendix.systemwideinterfaces.MendixRuntimeException;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-import org.apache.commons.codec.binary.Base64;
 
 public class EncryptString extends CustomJavaAction<java.lang.String>
 {
@@ -34,24 +34,24 @@ public class EncryptString extends CustomJavaAction<java.lang.String>
 	public java.lang.String executeAction() throws Exception
 	{
 		// BEGIN USER CODE
-		if (value == null) 
+		if (this.value == null) 
 			return null;
-		if (prefix == null || prefix.isEmpty())
+		if (this.prefix == null || this.prefix.isEmpty())
 			throw new MendixRuntimeException("Prefix should not be empty");
-		if (key == null || key.isEmpty())
+		if (this.key == null || this.key.isEmpty())
 			throw new MendixRuntimeException("Key should not be empty");
-		if (key.length() != 16)
+		if (this.key.length() != 16)
 			throw new MendixRuntimeException("Key length should be 16");
-		Cipher c = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-		SecretKeySpec k = new SecretKeySpec(key.getBytes(), "AES");
+		Cipher c = Cipher.getInstance("AES/GCM/PKCS5PADDING");
+		SecretKeySpec k = new SecretKeySpec(this.key.getBytes(), "AES");
 		c.init(Cipher.ENCRYPT_MODE, k);
 
-		byte[] encryptedData = c.doFinal(value.getBytes());
+		byte[] encryptedData = c.doFinal(this.value.getBytes());
 		byte[] iv = c.getIV();
 
-		return new StringBuilder(prefix +
-				new String(Base64.encodeBase64(iv))).append(";").append(
-				new String(Base64.encodeBase64(encryptedData))).toString();
+		return new StringBuilder(this.prefix +
+				new String(Base64.getEncoder().encode(iv))).append(";").append(
+				new String(Base64.getEncoder().encode(encryptedData))).toString();
 		// END USER CODE
 	}
 
