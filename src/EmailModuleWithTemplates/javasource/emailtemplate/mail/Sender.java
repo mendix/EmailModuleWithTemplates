@@ -197,9 +197,7 @@ public class Sender
 					}
 					
 					String mimeType = (new MimetypesFileTypeMap()).getContentType((String) attachment.getValue(this.context, FILE_DOCUMENT_NAME));
-					InputStream content = Core.getFileDocumentContent(this.context, attachment);
-		
-					try {
+					try(InputStream content = Core.getFileDocumentContent(this.context, attachment)) {
 						if(content != null) {
 							DataSource source = new ByteArrayDataSource(content, mimeType);
 							String fileName = (String) attachment.getValue(this.context, FILE_DOCUMENT_NAME);
@@ -208,8 +206,8 @@ public class Sender
 							
 							multipart.attach(source, fileName, fileName);
 						}
-					
-					} catch (Exception e) 
+					} 
+					catch (Exception e) 
 					{
 						throw new CoreException("Unable to attach attachment " + (String) attachment.getValue(this.context, FILE_DOCUMENT_NAME) + ".", e);
 					}

@@ -39,11 +39,11 @@ public class CopyAttachmentContent extends CustomJavaAction<java.lang.Boolean>
 		// BEGIN USER CODE
 		IContext context = this.getContext();
 
-		InputStream filedocumentObj = Core.getFileDocumentContent(this.getContext(), this.CopyFrom.getMendixObject());
-
-		String filename = this.CopyFrom.getName();
-
-		Core.storeFileDocumentContent(context, this.CopyTo.getMendixObject(), filename, filedocumentObj);
+		try(InputStream filedocumentObj = Core.getFileDocumentContent(this.getContext(), this.CopyFrom.getMendixObject()))
+		{
+			String filename = this.CopyFrom.getName();
+			Core.storeFileDocumentContent(context, this.CopyTo.getMendixObject(), filename, filedocumentObj);
+		}
 
 		return true;
 		// END USER CODE
