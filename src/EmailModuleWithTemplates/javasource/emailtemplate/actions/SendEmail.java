@@ -43,8 +43,9 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 	private java.lang.Boolean UseSSL;
 	private java.lang.Boolean UseTLS;
 	private java.lang.String FromDisplayName;
+	private java.lang.Boolean UseSSLCheckIdentity;
 
-	public SendEmail(IContext context, java.lang.String SMTPHost, java.lang.String SMTPUserName, java.lang.String SMTPPassword, java.lang.String CCAddresses, java.lang.String BCCAddresses, java.lang.String ToAddresses, java.lang.String FromAddress, java.lang.String ReplyToAddress, java.lang.String HtmlBody, java.lang.String PlainBody, java.lang.String Subject, java.lang.Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, java.lang.Boolean UseSSL, java.lang.Boolean UseTLS, java.lang.String FromDisplayName)
+	public SendEmail(IContext context, java.lang.String SMTPHost, java.lang.String SMTPUserName, java.lang.String SMTPPassword, java.lang.String CCAddresses, java.lang.String BCCAddresses, java.lang.String ToAddresses, java.lang.String FromAddress, java.lang.String ReplyToAddress, java.lang.String HtmlBody, java.lang.String PlainBody, java.lang.String Subject, java.lang.Long SMTPPort, java.util.List<IMendixObject> AttachmentList, java.util.List<IMendixObject> HeaderList, java.lang.Boolean UseSSL, java.lang.Boolean UseTLS, java.lang.String FromDisplayName, java.lang.Boolean UseSSLCheckIdentity)
 	{
 		super(context);
 		this.SMTPHost = SMTPHost;
@@ -64,6 +65,7 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 		this.UseSSL = UseSSL;
 		this.UseTLS = UseTLS;
 		this.FromDisplayName = FromDisplayName;
+		this.UseSSLCheckIdentity = UseSSLCheckIdentity;
 	}
 
 	@java.lang.Override
@@ -110,6 +112,7 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 		config.setUserPass((this.SMTPPassword != null ? this.SMTPPassword : ""));
 		config.setUseSSLSMTP(this.UseSSL);
 		config.setUseTLSSMTP(this.UseTLS);
+		config.setUseSSLCheckServerIdentity(this.UseSSLCheckIdentity);
 
 		String separator = (String) emailtemplate.proxies.constants.Constants.getEmailAddressSeparator();
 		if (separator == null)

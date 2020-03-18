@@ -236,6 +236,8 @@ public class Sender
 	        mail.setStartTLSEnabled(true);
 	    }
 	    
+	    mail.setSSLCheckServerIdentity(configuration.useSSLCheckServerIdentity());
+	    
 	    /* because the default session mechanisms uses System.getProperties() (which is not allowed 
 	     * in the cloud), we need to construct a session ourselves. The code to do this was lifted
 	     * from Email.java in the commons-email package.
