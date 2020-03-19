@@ -66,7 +66,7 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 		this.FromDisplayName = FromDisplayName;
 	}
 
-	@Override
+	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.AttachmentList = new java.util.ArrayList<system.proxies.FileDocument>();
@@ -173,7 +173,7 @@ public class SendEmail extends CustomJavaAction<java.lang.Boolean>
 	/**
 	 * Returns a string representation of this action
 	 */
-	@Override
+	@java.lang.Override
 	public java.lang.String toString()
 	{
 		return "SendEmail";

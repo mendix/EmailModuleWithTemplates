@@ -34,7 +34,7 @@ public class ReplaceEmailTemplateTokens extends CustomJavaAction<java.lang.Boole
 		this.__TokenList = TokenList;
 	}
 
-	@Override
+	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		this.email = __email == null ? null : emailtemplate.proxies.Email.initialize(getContext(), __email);
@@ -63,7 +63,7 @@ public class ReplaceEmailTemplateTokens extends CustomJavaAction<java.lang.Boole
 	/**
 	 * Returns a string representation of this action
 	 */
-	@Override
+	@java.lang.Override
 	public java.lang.String toString()
 	{
 		return "ReplaceEmailTemplateTokens";
