@@ -9,6 +9,7 @@ public class SMTPConfiguration
 	private String userPass;
 	
 	private boolean useSSLSMTP;
+	private boolean useSSLCheckServerIdentity;
 	private boolean useTLSSMTP;
 	
 	private String fromAddress;
@@ -20,6 +21,7 @@ public class SMTPConfiguration
 		// Basic configuration
 		this.useSSLSMTP = false;
 		this.useTLSSMTP = false;
+		this.useSSLCheckServerIdentity = false;
 		this.SMTPPort = 25;
 		this.SMTPHost = "";
 		this.userName = "";
@@ -117,6 +119,16 @@ public class SMTPConfiguration
 	public void setReplyToAddress(String replyToAddress) 
 	{
 		this.replyToAddress = replyToAddress;
+	}
+
+	public boolean useSSLCheckServerIdentity() 
+	{
+		return this.useSSLCheckServerIdentity;
+	}
+
+	public void setUseSSLCheckServerIdentity(boolean useSSLCheckServerIdentity) 
+	{
+		this.useSSLCheckServerIdentity = useSSLCheckServerIdentity;
 	}
 
 
