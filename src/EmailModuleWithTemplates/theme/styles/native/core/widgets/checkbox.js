@@ -1,7 +1,13 @@
-import { TextBox, TextBoxVertical } from "./textbox";
-import { brand, contrast, spacing } from "../variables";
-import { Platform } from "react-native";
-import { anyColorToRgbString } from "../_helperfunctions/convertcolors";
+import { Platform }                             from "react-native";
+import { background, brand, contrast, spacing } from "../variables";
+import { TextBox, TextBoxVertical }             from "./textbox";
+
+//
+// DISCLAIMER:
+// Do not change this file because it is core styling.
+// Customizing core files will make updating Atlas much more difficult in the future.
+// To customize any core styling, copy the part you want to customize to styles/native/app/ so the core styling is overwritten.
+//
 
 /* ==========================================================================
     CheckBox
@@ -24,10 +30,10 @@ export const CheckBox = {
         // thumbColorOn, thumbColorOff, trackColorOn, trackColorOff and all TextStyle properties are allowed
         backgroundColor: "transparent",
         marginRight: Platform.select({ android: -3 }),
-        thumbColorOn: brand.primary,
-        trackColorOn: `rgba(${anyColorToRgbString(brand.primary)},0.2)`,
-        thumbColorOff: contrast.low,
-        trackColorOff: `rgba(${anyColorToRgbString(contrast.low)},0.2)`,
+        thumbColorOn: background.primary,
+        trackColorOn: brand.success,
+        thumbColorOff: background.lowest,
+        trackColorOff: contrast.lowest,
     },
     inputDisabled: {
         opacity: Platform.select({ android: 0.5 }),
@@ -35,10 +41,10 @@ export const CheckBox = {
     inputError: {
         // thumbColorOn, thumbColorOff, trackColorOn, trackColorOff and all TextStyle properties are allowed
         ...TextBox.inputError,
-        thumbColorOn: brand.danger,
-        trackColorOn: `rgba(${anyColorToRgbString(brand.danger)},0.2)`,
-        thumbColorOff: brand.danger,
-        trackColorOff: `rgba(${anyColorToRgbString(brand.danger)},0.2)`,
+        thumbColorOn: background.primary,
+        trackColorOn: brand.danger,
+        thumbColorOff: background.lowest,
+        trackColorOff: contrast.lowest,
     },
     validationMessage: {
         // All TextStyle properties are allowed
@@ -49,7 +55,9 @@ export const CheckBox = {
 
 export const CheckBoxVertical = {
     container: TextBoxVertical.container,
-    label: TextBoxVertical.label,
+    label: {
+        ...TextBoxVertical.label,
+    },
     input: {
         alignSelf: "flex-start",
     },

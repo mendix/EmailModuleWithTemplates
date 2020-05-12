@@ -1,5 +1,12 @@
 import { input, spacing } from "../variables";
 
+//
+// DISCLAIMER:
+// Do not change this file because it is core styling.
+// Customizing core files will make updating Atlas much more difficult in the future.
+// To customize any core styling, copy the part you want to customize to styles/native/app/ so the core styling is overwritten.
+//
+
 /* ==========================================================================
     Text Box
 
@@ -13,7 +20,7 @@ export const TextBox = {
     label: {
         // numberOfLines and all TextStyle properties are allowed
         numberOfLines: 1,
-        color: input.color,
+        color: input.labelColor,
         fontSize: input.fontSize,
         textAlign: input.textAlign,
         marginRight: spacing.small,
@@ -41,7 +48,6 @@ export const TextBox = {
         // All TextStyle properties are allowed
         color: input.errorColor,
         borderColor: input.errorColor,
-        selectionColor: input.errorColor,
         placeholderTextColor: input.errorColor,
         underlineColorAndroid: input.underlineColorAndroid,
     },
@@ -55,7 +61,7 @@ export const TextBoxVertical = {
     container: {},
     label: {
         numberOfLines: 1,
-        color: input.color,
+        color: input.labelColor,
         fontSize: input.fontSize,
         textAlign: input.textAlign,
         marginBottom: spacing.smallest,

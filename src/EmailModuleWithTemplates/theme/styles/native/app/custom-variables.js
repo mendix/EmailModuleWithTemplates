@@ -1,6 +1,6 @@
-import { setColorBasedOnBackground, setContrastScale } from "../core/_helperfunctions/convertcolors";
-import { Platform } from "react-native";
-import adjustFont from "../core/_helperfunctions/adjustfont";
+import { Platform }                                    from "react-native";
+import adjustFont                                      from "../core/helpers/_functions/adjustfont";
+import { setColorBasedOnBackground, setContrastScale } from "../core/helpers/_functions/convertcolors";
 
 /*
 ==> You can find a copy of the core variables below. (From styles/native/core/variables.js)
@@ -118,14 +118,15 @@ export const button = {
 
 //Input Styles
 export const input = {
-    // Colors
-    color: contrast.higher,
+    color: font.color,
     errorColor: brand.danger,
+    labelColor: contrast.low,
     borderColor: contrast.lower,
     backgroundColor: background.primary,
+    disabledBackgroundColor: contrast.lowest,
     selectionColor: contrast.lower,
     placeholderTextColor: contrast.low,
-    underlineColorAndroid: Platform.select({ android: "transparent" }),
+    underlineColorAndroid: "transparent",
 
     // Sizes
     fontSize: font.size,
@@ -136,5 +137,5 @@ export const input = {
     // Alignment
     textAlign: "left",
     paddingHorizontal: spacing.small,
-    paddingVertical: spacing.smaller,
+    paddingVertical: spacing.small,
 };
