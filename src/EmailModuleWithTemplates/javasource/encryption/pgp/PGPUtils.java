@@ -214,14 +214,17 @@ public class PGPUtils {
 		//
 		// find the secret key
 		//
-		Iterator<PGPPublicKeyEncryptedData> it = enc.getEncryptedDataObjects();
+		Iterator<PGPEncryptedData> it = enc.getEncryptedDataObjects();
 		PGPPrivateKey sKey = null;
 		PGPPublicKeyEncryptedData pbe = null;
 
 		while( sKey == null && it.hasNext() ) {
-			pbe = it.next();
+			PGPEncryptedData data = it.next();
+			if (data instanceof PGPPublicKeyEncryptedData) {
+				pbe = (PGPPublicKeyEncryptedData) data;
 
-			sKey = findPrivateKey(keyIn, pbe.getKeyID(), passwd);
+				sKey = findPrivateKey(keyIn, pbe.getKeyID(), passwd);
+			}
 		}
 
 		if ( sKey == null ) {
