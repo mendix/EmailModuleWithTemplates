@@ -1,0 +1,44 @@
+<project name="${project.artifactId}" basedir=".">
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+    <classpath>
+      <pathelement location="${basedir}\userlib\ant-contrib-1.0b3.jar"/>
+    </classpath>
+  </taskdef>
+
+  <description>Email Module with Templates</description>
+    <target name="createRequiredLibs">
+      <echo message="Create RequiredLib files for dependencies in ${basedir}\userlib."/>
+      <foreach param="file" target="touchRequiredLibFile" inheritall="true">
+        <path>
+          <fileset dir="${basedir}\userlib" includes="*.jar" excludes="ant-* *jdk15on* *-io*"/>
+        </path>
+      </foreach>
+      <echo message="Create required libs for the encryption module in ${basedir}\userlib."/>
+      <foreach param="file" target="touchRequiredLibFileEncryption" inheritall="true">
+        <path>
+          <fileset dir="${basedir}\userlib" includes="*jdk15on* *-io-*"/>
+        </path>
+      </foreach>
+    </target>
+
+    <target name="touchRequiredLibFile">
+      <touch file="${file}.${project.artifactId}.RequiredLib"/>
+    </target>
+    <target name="touchRequiredLibFileEncryption">
+      <touch file="${file}.Encryption.RequiredLib"/>
+    </target>
+
+    <target name="exportModulePackage">
+      <echo message="Export module package for Mendix ${mendixVersion}."/>
+      <exec executable="cmd">
+        <arg value="/c"/>
+        <arg value="${mendixInstallDir}\${mendixVersion}\modeler\mxutil.exe"/>
+        <arg value="create-module-package"/>
+        <arg value="--filter-required-libs"/>
+        <arg value="--package-dir=target"/>
+        <arg value="${project.artifactId}.mpr"/>
+        <arg value="${project.artifactId}"/>
+      </exec> <echo message="Copy module package to release folder."/>
+      <copy file="${basedir}\target\${project.artifactId}.mpk" tofile="${basedir}\releases\${project.artifactId}-${project.version}.mpk"/>
+    </target>
+  </project>
