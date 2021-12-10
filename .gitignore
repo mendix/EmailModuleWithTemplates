@@ -1,5 +1,6 @@
 deployment
-/releases
+releases
+target
 /.settings
 *.launch
 .classpath
@@ -27,6 +28,10 @@ src/releases
 *.launch
 .classpath
 .project
-src/javasource/system/actions/VerifyPassword.java
-src/javasource/system/UserActionsRegistrar.java
+src/EmailModuleWithTemplates/javasource/system/actions/VerifyPassword.java
+src/EmailModuleWithTemplates/javasource/system/UserActionsRegistrar.java
+UserActionsRegistrar.java
 GPUCache
+*.DS_Store
+src/EmailModuleWithTemplates/.settings
+*.core.prefs
