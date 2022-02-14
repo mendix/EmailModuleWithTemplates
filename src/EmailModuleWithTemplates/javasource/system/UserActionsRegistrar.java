@@ -7,11 +7,11 @@ public class UserActionsRegistrar
   public void registerActions(IActionRegistrator registrator)
   {
     registrator.bundleComponentLoaded();
-    registrator.registerUserAction(emailtemplate.actions.ConvertHTMLBodyToPlainText.class);
-    registrator.registerUserAction(emailtemplate.actions.CopyAttachmentContent.class);
-    registrator.registerUserAction(emailtemplate.actions.ReplaceCustomToken.class);
-    registrator.registerUserAction(emailtemplate.actions.ReplaceEmailTemplateTokens.class);
-    registrator.registerUserAction(emailtemplate.actions.SendEmail.class);
+    registrator.registerUserAction(emailmodulewithtemplates.actions.ConvertHTMLBodyToPlainText.class);
+    registrator.registerUserAction(emailmodulewithtemplates.actions.CopyAttachmentContent.class);
+    registrator.registerUserAction(emailmodulewithtemplates.actions.ReplaceCustomToken.class);
+    registrator.registerUserAction(emailmodulewithtemplates.actions.ReplaceEmailTemplateTokens.class);
+    registrator.registerUserAction(emailmodulewithtemplates.actions.SendEmail.class);
     registrator.registerUserAction(encryption.actions.DecryptString.class);
     registrator.registerUserAction(encryption.actions.EncryptString.class);
     registrator.registerUserAction(encryption.actions.GeneratePGPKeyRing.class);
