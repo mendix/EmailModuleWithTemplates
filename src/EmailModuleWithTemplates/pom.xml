@@ -170,7 +170,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <dependency>
      <groupId>commons-io</groupId>
      <artifactId>commons-io</artifactId>
-     <version>2.10.0</version>
+     <version>2.13.0</version>
     </dependency>
     <dependency>
      <groupId>com.sun.mail</groupId>
